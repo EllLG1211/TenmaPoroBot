@@ -15,5 +15,5 @@ if (line is string ApiKey)
     string matchId = client.TftMatchV1().GetMatchIdsByPUUID(RegionalRoute.EUROPE, sumonner.Puuid, 1)[0];
     Match? match = await client.TftMatchV1().GetMatchAsync(RegionalRoute.EUROPE, matchId);
 
-    foreach (string participant in match.Metadata.Participants) Console.WriteLine(client.TftSummonerV1().GetByPUUID(PlatformRoute.EUW1, participant).Name);
+    foreach (Participant participant in match.Info.Participants) Console.WriteLine(client.TftSummonerV1().GetByPUUID(PlatformRoute.EUW1, participant.Puuid).Name);
 }
