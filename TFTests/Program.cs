@@ -16,4 +16,21 @@ if (line is string ApiKey)
     Match? match = await client.TftMatchV1().GetMatchAsync(RegionalRoute.EUROPE, matchId);
 
     foreach (Participant participant in match.Info.Participants) Console.WriteLine(client.TftSummonerV1().GetByPUUID(PlatformRoute.EUW1, participant.Puuid).Name);
+
+
+    Console.WriteLine("Displaying info from The Poro Man's game");
+    Participant userInfo = match.Info.Participants.Where((participant) => participant.Puuid == sumonner.Puuid).First();
+
+    foreach(var unit in userInfo.Units)
+    {
+        string name = unit.CharacterId.Substring(5);
+        string stars = unit.Tier switch
+        {
+            1 => "*",
+            2 => "**",
+            3 => "***",
+            _ => "?"
+        };
+        Console.WriteLine($"{name} ({stars})");
+    }
 }
